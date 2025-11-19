@@ -1,15 +1,15 @@
-# Snowline Visualization Project
+# Snowline Visualization Tool
 
-This project aims to visualize the snowline across a geographic region (specifically focusing on Scotland, UK) as it changes over time.
+This project is an offline data processing tool to visualize the historical snowline across Scotland, UK, and generate high-quality, print-ready SVG maps.
 
+The tool is a command-line pipeline driven by a `config.yaml` file. See `docs/configuration.md` for details.
 
 ## Project Documents
 
-The following documents outline the project plan in detail:
+The following documents outline the project plan and technical details:
 
-- [docs/data_sources.md](docs/data_sources.md) — Research and identified potential sources of snowline data, with a focus on Scotland.
-- [docs/data_processing.md](docs/data_processing.md) — Outlines the steps to process raw data and extract the snowline.
-- [docs/data_storage.md](docs/data_storage.md) — Proposes suitable data formats and storage solutions.
-- [docs/visualization_tools.md](docs/visualization_tools.md) — Suggests appropriate tools and libraries for visualization.
-- [docs/ui_features.md](docs/ui_features.md) — Describes the key features of the user interface.
-- [docs/deployment_strategies.md](docs/deployment_strategies.md) — Outlines potential deployment strategies.
+*   [docs/prd.md](docs/prd.md) — The Product Requirements Document (PRD) detailing the project's objectives and features.
+*   [docs/data_sources.md](docs/data_sources.md) — Research on potential sources of snowline data, focusing on Scotland.
+*   [docs/data_processing.md](docs/data_processing.md) — The workflow for processing raw data to extract the snowline.
+*   [docs/tooling.md](docs/tooling.md) — The Python libraries (e.g., GeoPandas, Matplotlib, Cartopy) used for data processing and map generation.
+*   [docs/configuration.md](docs/configuration.md) — Detailed specification of the `config.yaml` file that drives the tool.
