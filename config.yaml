@@ -1,0 +1,27 @@
+# -----------------------------------------------------------------
+# Sample Configuration for the Snowline Visualization Tool
+# -----------------------------------------------------------------
+
+input:
+  snow_cover_data: ./data/ssgb_scotland_1945-2007.csv  # Placeholder path
+  basemap_data: ./data/scotland_borders.shp            # Placeholder path
+
+region:
+  bounding_box:
+    min_lon: -7.5
+    max_lon: -1.0
+    min_lat: 54.5
+    max_lat: 59.0
+
+time:
+  start_date: "2005-01-15"
+  end_date: "2005-01-20"
+
+output:
+  directory: ./output/maps
+  filename_prefix: scotland_snowline_
+  style:
+    snowline_color: "#0000FF"
+    snowline_width: 1.5
+    gridline_color: "#CCCCCC"
+    gridline_style: '--'
