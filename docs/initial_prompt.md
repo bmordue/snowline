@@ -1,0 +1,1 @@
+Help me plan a project to visualise the snowline across a geographic region as it changes over time. The region could be as big as a country or as small as a single mountain. The timescale could be over a single season or across years.
