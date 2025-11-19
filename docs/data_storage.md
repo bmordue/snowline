@@ -4,15 +4,15 @@ This document outlines recommended storage solutions and data formats for both r
 
 ## Raw Data Storage
 
-*   **Recommendation:** Store raw data in its native format (e.g., NetCDF, HDF, GeoTIFF) in a cloud storage bucket.
+*   **Recommendation:** Store raw data in its native format (e.g., NetCDF, HDF, GeoTIFF) on local disk.
 *   **Cloud Providers:**
     *   Amazon Web Services (AWS) S3
     *   Google Cloud Storage (GCS)
     *   Microsoft Azure Blob Storage
 *   **Rationale:**
-    *   **Scalability:** Cloud storage can handle large volumes of data.
-    *   **Accessibility:** Data can be easily accessed by processing scripts running in the cloud.
-    *   **Cost-Effectiveness:** Pay-as-you-go pricing is often more economical than maintaining on-premise storage.
+    *   **Scalability:** This is an offline pipeline so cloud storage is not required.
+    *   **Accessibility:** Data can be easily accessed by running scripts locally.
+    *   **Cost-Effectiveness:** No need for cloud services.
 
 ## Processed Snowline Data
 
@@ -52,9 +52,3 @@ The processed snowline is a vector feature (a line). The choice of format depend
     *   **More Complex to Set Up:** Requires a running PostgreSQL database.
     *   **Overkill for Simple Applications:** Might be more than is needed for a simple visualization tool.
 
-## Summary
-
-| Data Type        | Recommended Format | Storage Solution        |
-| ---------------- | ------------------ | ----------------------- |
-| Raw Data         | Native (e.g., NetCDF) | Cloud Storage (S3, GCS) |
-| Processed Snowline | GeoJSON            | Flat files, or PostGIS  |
