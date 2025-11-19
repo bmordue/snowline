@@ -29,7 +29,10 @@ These controls will allow users to select the time period for the visualization.
 Users should be able to select the geographic region they are interested in.
 
 *   **Search Box:** A geocoding search box to find a specific place by name.
-*   **Predefined Regions:** A dropdown menu of interesting regions (e.g., "The Alps," "The Himalayas," "Sierra Nevada").
+*   **Predefined Regions:** A dropdown menu of interesting regions. Given the project's focus, this will include:
+    *   Scotland
+    *   The Cairngorms
+    *   Ben Nevis
 *   **Custom Region:** A drawing tool that allows users to draw a polygon on the map to define their own region of interest.
 
 ## 4. Information Panel
