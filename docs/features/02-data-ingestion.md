@@ -78,12 +78,13 @@ class SSGBDataLoader:
         self._raw_data: Optional[pd.DataFrame] = None
     
     def load(self) -> pd.DataFrame:
-        """Load the raw CSV data."""
-        self._raw_data = pd.read_csv(
-            self.data_path,
-            parse_dates=['date'],
-            dtype={'site_id': str}
-        )
+        """Load the raw CSV data, caching it in memory."""
+        if self._raw_data is None:
+            self._raw_data = pd.read_csv(
+                self.data_path,
+                parse_dates=['date'],
+                dtype={'site_id': str}
+            )
         return self._raw_data
     
     def filter_by_date_range(
