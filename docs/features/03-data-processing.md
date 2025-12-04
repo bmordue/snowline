@@ -145,7 +145,7 @@ class InterpolationProcessor(SnowlineProcessor):
     def _contours_to_geometry(
         self, 
         contours: list[np.ndarray]
-    ) -> MultiLineString:
+    ) -> Optional[MultiLineString]:
         """Convert contour arrays to Shapely geometry."""
         grid_x, grid_y = self._create_grid()
         
