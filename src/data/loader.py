@@ -22,8 +22,16 @@ class DataLoader(ABC):
         pass
     
     @abstractmethod
-    def filter_by_date_range(self, start: date, end: date) -> pd.DataFrame:
-        """Filter data to specified date range (inclusive)."""
+    def filter_by_date_range(self, start_date: date, end_date: date) -> pd.DataFrame:
+        """Filter data to specified date range (inclusive).
+        
+        Args:
+            start_date: Start of date range (inclusive).
+            end_date: End of date range (inclusive).
+        
+        Returns:
+            DataFrame filtered to the specified date range.
+        """
         pass
     
     @abstractmethod
