@@ -12,4 +12,5 @@ The following documents outline the project plan and technical details:
 *   [docs/data_sources.md](docs/data_sources.md) — Research on potential sources of snowline data, focusing on Scotland.
 *   [docs/data_processing.md](docs/data_processing.md) — The workflow for processing raw data to extract the snowline.
 *   [docs/tooling.md](docs/tooling.md) — The Python libraries (e.g., GeoPandas, Matplotlib, Cartopy) used for data processing and map generation.
+*   [docs/alternative_toolchains.md](docs/alternative_toolchains.md) — Review and assessment of alternative languages and toolchains for cartography and geography work.
 *   [docs/configuration.md](docs/configuration.md) — Detailed specification of the `config.yaml` file that drives the tool.
