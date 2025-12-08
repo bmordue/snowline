@@ -101,14 +101,13 @@ class InterpolationProcessor(SnowlineProcessor):
             # Convert grid indices to coordinates
             coords = []
             for c in contour:
-                row_idx = np.round(c[0]).astype(int)
-                col_idx = np.round(c[1]).astype(int)
-                # Ensure indices are within bounds
-                if 0 <= row_idx < grid_y.shape[0] and 0 <= col_idx < grid_x.shape[1]:
-                    coords.append((
-                        grid_x[0, col_idx],
-                        grid_y[row_idx, 0]
-                    ))
+                # Clip indices to valid range before rounding
+                row_idx = np.clip(np.round(c[0]).astype(int), 0, grid_y.shape[0] - 1)
+                col_idx = np.clip(np.round(c[1]).astype(int), 0, grid_x.shape[1] - 1)
+                coords.append((
+                    grid_x[0, col_idx],
+                    grid_y[row_idx, 0]
+                ))
             if len(coords) >= 2:
                 lines.append(LineString(coords))
         
