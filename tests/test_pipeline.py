@@ -131,17 +131,24 @@ class TestSnowlinePipeline:
     
     def test_pipeline_with_empty_date_range(self, test_config_with_data):
         """Test pipeline with a date range that has no data."""
-        # Modify config to use date range outside of data
-        test_config_with_data.time.start_date = date(2005, 2, 1)
-        test_config_with_data.time.end_date = date(2005, 2, 2)
+        # Create a new config with date range outside of data
+        from dataclasses import replace
+        config_with_different_dates = replace(
+            test_config_with_data,
+            time=replace(
+                test_config_with_data.time,
+                start_date=date(2005, 2, 1),
+                end_date=date(2005, 2, 2)
+            )
+        )
         
-        loader = SSGBDataLoader(test_config_with_data.input.snow_cover_data)
+        loader = SSGBDataLoader(config_with_different_dates.input.snow_cover_data)
         processor = InterpolationProcessor(
-            bbox=test_config_with_data.region.bounding_box
+            bbox=config_with_different_dates.region.bounding_box
         )
         
         pipeline = SnowlinePipeline(
-            config=test_config_with_data,
+            config=config_with_different_dates,
             loader=loader,
             processor=processor
         )

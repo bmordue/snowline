@@ -4,6 +4,7 @@ from datetime import date, timedelta
 from typing import Iterator
 
 import geopandas as gpd
+from shapely.geometry import Point
 
 from src.config import Config
 from src.data.loader import DataLoader
@@ -60,7 +61,6 @@ class SnowlinePipeline:
         ]
         
         # Convert filtered data to GeoDataFrame
-        from shapely.geometry import Point
         geometry = [Point(xy) for xy in zip(filtered_data['longitude'], filtered_data['latitude'])]
         gdf = gpd.GeoDataFrame(filtered_data, geometry=geometry, crs="EPSG:4326")
         

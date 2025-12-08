@@ -45,12 +45,13 @@ def create_test_observations():
 def empty_date_observations():
     """Create observations for a date with no data."""
     observations = []
-    test_date = date(2005, 1, 20)
+    # Data exists for 2005-01-15 but we'll query for 2005-01-20
+    data_date = date(2005, 1, 15)
     
     for lon in np.arange(-5.0, -3.0, 0.5):
         for lat in np.arange(56.0, 58.0, 0.5):
             observations.append({
-                'date': date(2005, 1, 15),  # Different date
+                'date': data_date,
                 'site_id': f'TEST_{lon}_{lat}',
                 'latitude': lat,
                 'longitude': lon,
