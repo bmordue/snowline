@@ -46,28 +46,23 @@ class SnowlinePipeline:
             Dictionary mapping dates to GeoDataFrames containing snowline
             geometries for that date.
         """
-        # Load and filter data
+        # Load data
         data = self.loader.load()
         
-        # Filter by date range
-        filtered_data = self.loader.filter_by_date_range(
-            self.config.time.start_date,
-            self.config.time.end_date
-        )
+        # Filter by date range and bounding box
+        filtered_data = data[
+            (data['date'] >= self.config.time.start_date) &
+            (data['date'] <= self.config.time.end_date) &
+            (data['longitude'] >= self.config.region.bounding_box.min_lon) &
+            (data['longitude'] <= self.config.region.bounding_box.max_lon) &
+            (data['latitude'] >= self.config.region.bounding_box.min_lat) &
+            (data['latitude'] <= self.config.region.bounding_box.max_lat)
+        ]
         
-        # Update the loader's cached data with filtered data
-        self.loader._raw_data = filtered_data
-        
-        # Filter by bounding box
-        filtered_data = self.loader.filter_by_bounding_box(
-            self.config.region.bounding_box
-        )
-        
-        # Update the loader's cached data with filtered data
-        self.loader._raw_data = filtered_data
-        
-        # Convert to GeoDataFrame
-        gdf = self.loader.to_geodataframe()
+        # Convert filtered data to GeoDataFrame
+        from shapely.geometry import Point
+        geometry = [Point(xy) for xy in zip(filtered_data['longitude'], filtered_data['latitude'])]
+        gdf = gpd.GeoDataFrame(filtered_data, geometry=geometry, crs="EPSG:4326")
         
         # Process each date
         results = {}

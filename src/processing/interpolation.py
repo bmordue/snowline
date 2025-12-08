@@ -101,8 +101,8 @@ class InterpolationProcessor(SnowlineProcessor):
             # Convert grid indices to coordinates
             coords = []
             for c in contour:
-                row_idx = int(c[0])
-                col_idx = int(c[1])
+                row_idx = int(np.round(c[0]))
+                col_idx = int(np.round(c[1]))
                 # Ensure indices are within bounds
                 if 0 <= row_idx < grid_y.shape[0] and 0 <= col_idx < grid_x.shape[1]:
                     coords.append((
