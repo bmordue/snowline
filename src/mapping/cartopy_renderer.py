@@ -12,7 +12,6 @@ from src.config import Config
 from src.mapping.renderer import MapRenderer
 
 
-
 class CartopyRenderer(MapRenderer):
     """Render maps using Matplotlib and Cartopy."""
     
@@ -26,7 +25,6 @@ class CartopyRenderer(MapRenderer):
         self.bbox = config.region.bounding_box
         self.style = config.output.style
         self.projection = ccrs.PlateCarree()
-
     
     def _create_figure(self) -> tuple:
         """Create figure with map projection."""
@@ -78,8 +76,8 @@ class CartopyRenderer(MapRenderer):
         if snowline.empty:
             return
         
-        # Check if geometry is None
-        if len(snowline) > 0 and snowline.geometry.iloc[0] is None:
+        # Check if all geometries are None
+        if snowline.geometry.isna().all():
             return
         
         snowline.plot(
