@@ -14,3 +14,4 @@ The following documents outline the project plan and technical details:
 *   [docs/tooling.md](docs/tooling.md) — The Python libraries (e.g., GeoPandas, Matplotlib, Cartopy) used for data processing and map generation.
 *   [docs/alternative_toolchains.md](docs/alternative_toolchains.md) — Review and assessment of alternative languages and toolchains for cartography and geography work.
 *   [docs/configuration.md](docs/configuration.md) — Detailed specification of the `config.yaml` file that drives the tool.
+*   [docs/sonarcloud_setup.md](docs/sonarcloud_setup.md) — Guide for setting up SonarCloud code analysis integration.
