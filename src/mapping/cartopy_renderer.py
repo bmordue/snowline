@@ -1,27 +1,32 @@
 """Cartopy-based map renderer for generating SVG maps."""
 
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 from matplotlib.lines import Line2D
 import cartopy.crs as ccrs
-import cartopy.feature as cfeature
 from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
 import geopandas as gpd
 from pathlib import Path
 from datetime import date
 
-from src.config import Config, StyleConfig, BoundingBox
+from src.config import Config
 from src.mapping.renderer import MapRenderer
+
 
 
 class CartopyRenderer(MapRenderer):
     """Render maps using Matplotlib and Cartopy."""
+    
+    # North arrow positioning constants (in axes fraction coordinates)
+    NORTH_ARROW_X = 0.95
+    NORTH_ARROW_Y = 0.95
+    NORTH_ARROW_LENGTH = 0.08
     
     def __init__(self, config: Config):
         self.config = config
         self.bbox = config.region.bounding_box
         self.style = config.output.style
         self.projection = ccrs.PlateCarree()
+
     
     def _create_figure(self) -> tuple:
         """Create figure with map projection."""
@@ -47,7 +52,7 @@ class CartopyRenderer(MapRenderer):
         # Use stock features with low resolution that don't require downloads
         try:
             ax.stock_img()
-        except (ConnectionError, OSError, ImportError) as e:
+        except (ConnectionError, OSError, ImportError):
             # If stock image fails, just use colored background
             # This allows the renderer to work offline
             pass
@@ -105,16 +110,11 @@ class CartopyRenderer(MapRenderer):
     
     def _add_north_arrow(self, ax) -> None:
         """Add north arrow to the map."""
-        # Position in axes coordinates (top-right corner)
-        arrow_x = 0.95
-        arrow_y = 0.95
-        arrow_length = 0.08
-        
-        # Create arrow
+        # Create arrow using class constants for positioning
         ax.annotate(
             'N',
-            xy=(arrow_x, arrow_y - arrow_length),
-            xytext=(arrow_x, arrow_y),
+            xy=(self.NORTH_ARROW_X, self.NORTH_ARROW_Y - self.NORTH_ARROW_LENGTH),
+            xytext=(self.NORTH_ARROW_X, self.NORTH_ARROW_Y),
             xycoords='axes fraction',
             textcoords='axes fraction',
             fontsize=12,
