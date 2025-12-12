@@ -4,11 +4,9 @@ import pytest
 import shutil
 from datetime import date
 from pathlib import Path
-import tempfile
-import os
 
 import geopandas as gpd
-from shapely.geometry import LineString, Point
+from shapely.geometry import LineString
 
 from src.config import (
     Config, BoundingBox, InputConfig, RegionConfig, 
@@ -17,7 +15,6 @@ from src.config import (
 from src.mapping.renderer import MapRenderer
 from src.mapping.cartopy_renderer import CartopyRenderer
 from src.mapping.generator import MapGenerator
-
 
 
 @pytest.fixture
