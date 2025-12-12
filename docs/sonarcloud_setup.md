@@ -47,7 +47,14 @@ The repository already contains the necessary configuration files:
 - `sonar-project.properties` - SonarCloud project configuration
 - `.github/workflows/ci.yml` - GitHub Actions workflow with SonarCloud scan
 
-You may need to update the `sonar.organization` value in `sonar-project.properties` if your SonarCloud organization name differs from your GitHub username.
+**Important**: You may need to update the `sonar.organization` value in `sonar-project.properties` if your SonarCloud organization name differs from your GitHub username. To find your organization name:
+
+1. Log in to SonarCloud
+2. Click on your profile icon → "My Organizations"
+3. Find the organization key (it's typically your GitHub username or organization name)
+4. Update the `sonar.organization` value in `sonar-project.properties` if different
+
+If the organization name is incorrect, the SonarCloud scan will fail with an authentication error.
 
 ### 5. Test the Integration
 
