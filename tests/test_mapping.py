@@ -2,6 +2,7 @@
 
 import pytest
 import shutil
+from dataclasses import replace
 from datetime import date
 from pathlib import Path
 
@@ -125,11 +126,17 @@ class TestCartopyRenderer:
     
     def test_render_applies_custom_style(self, test_config, sample_snowline, tmp_path):
         """Test that custom style is applied."""
-        # Modify style
-        test_config.output.style.snowline_color = "#FF0000"
-        test_config.output.style.snowline_width = 2.5
+        # Create a modified config to avoid mutating the shared fixture
+        from dataclasses import replace
+        custom_style = replace(
+            test_config.output.style,
+            snowline_color="#FF0000",
+            snowline_width=2.5
+        )
+        custom_output = replace(test_config.output, style=custom_style)
+        custom_config = replace(test_config, output=custom_output)
         
-        renderer = CartopyRenderer(test_config)
+        renderer = CartopyRenderer(custom_config)
         output_path = tmp_path / "styled_map.svg"
         target_date = date(2005, 1, 15)
         
@@ -192,9 +199,12 @@ class TestMapGenerator:
     
     def test_generate_filename_with_different_prefix(self, test_config):
         """Test filename generation with custom prefix."""
-        test_config.output.filename_prefix = "map_"
-        renderer = CartopyRenderer(test_config)
-        generator = MapGenerator(test_config, renderer)
+        # Create a modified config to avoid mutating the shared fixture
+        custom_output = replace(test_config.output, filename_prefix="map_")
+        custom_config = replace(test_config, output=custom_output)
+        
+        renderer = CartopyRenderer(custom_config)
+        generator = MapGenerator(custom_config, renderer)
         
         filename = generator._generate_filename(date(2005, 12, 31))
         
