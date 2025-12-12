@@ -22,6 +22,9 @@
           pyyaml
           shapely
           numpy
+          scipy
+          scikit-image
+          pytest
         ]))
         # Add other system dependencies here if needed
       ];
