@@ -127,7 +127,6 @@ class TestCartopyRenderer:
     def test_render_applies_custom_style(self, test_config, sample_snowline, tmp_path):
         """Test that custom style is applied."""
         # Create a modified config to avoid mutating the shared fixture
-        from dataclasses import replace
         custom_style = replace(
             test_config.output.style,
             snowline_color="#FF0000",

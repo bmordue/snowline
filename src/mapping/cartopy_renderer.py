@@ -163,8 +163,7 @@ class CartopyRenderer(MapRenderer):
         
         # Add map elements
         self._add_base_map(ax)
-        if self.config.input.basemap_data:
-            self._add_custom_basemap(ax)
+        self._add_custom_basemap(ax)
         self._add_snowline(ax, snowline)
         self._add_graticules(ax)
         self._add_north_arrow(ax)
