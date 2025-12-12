@@ -1,6 +1,7 @@
 """Tests for the mapping module."""
 
 import pytest
+import shutil
 from datetime import date
 from pathlib import Path
 import tempfile
@@ -16,6 +17,7 @@ from src.config import (
 from src.mapping.renderer import MapRenderer
 from src.mapping.cartopy_renderer import CartopyRenderer
 from src.mapping.generator import MapGenerator
+
 
 
 @pytest.fixture
@@ -245,7 +247,6 @@ class TestMapGenerator:
         # Remove output directory if it exists
         output_dir = tmp_path / "output"
         if output_dir.exists():
-            import shutil
             shutil.rmtree(output_dir)
         
         renderer = CartopyRenderer(test_config)

@@ -47,8 +47,9 @@ class CartopyRenderer(MapRenderer):
         # Use stock features with low resolution that don't require downloads
         try:
             ax.stock_img()
-        except:
+        except (ConnectionError, OSError, ImportError) as e:
             # If stock image fails, just use colored background
+            # This allows the renderer to work offline
             pass
     
     def _add_custom_basemap(self, ax) -> None:
@@ -69,7 +70,11 @@ class CartopyRenderer(MapRenderer):
         snowline: gpd.GeoDataFrame
     ) -> None:
         """Add snowline to the map."""
-        if snowline.empty or snowline.geometry.iloc[0] is None:
+        if snowline.empty:
+            return
+        
+        # Check if geometry is None
+        if len(snowline) > 0 and snowline.geometry.iloc[0] is None:
             return
         
         snowline.plot(
