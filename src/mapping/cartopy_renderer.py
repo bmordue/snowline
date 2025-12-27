@@ -39,40 +39,12 @@ class CartopyRenderer(MapRenderer):
     
     def _add_base_map(self, ax) -> None:
         """Add base map features."""
-        # Add land and ocean
-        ax.add_feature(
-            cfeature.LAND, 
-            facecolor='#f0f0f0',
-            edgecolor='none'
-        )
-        ax.add_feature(
-            cfeature.OCEAN, 
-            facecolor='#e6f3ff'
-        )
+        # Set a light background color
+        ax.set_facecolor('#f5f5f5')
         
-        # Add coastlines and borders
-        ax.add_feature(
-            cfeature.COASTLINE, 
-            linewidth=0.5,
-            edgecolor='#666666'
-        )
-        ax.add_feature(
-            cfeature.BORDERS, 
-            linewidth=0.3,
-            linestyle=':'
-        )
-        
-        # Add rivers and lakes
-        ax.add_feature(
-            cfeature.RIVERS, 
-            linewidth=0.3,
-            edgecolor='#99ccff'
-        )
-        ax.add_feature(
-            cfeature.LAKES, 
-            facecolor='#e6f3ff',
-            edgecolor='#99ccff'
-        )
+        # Note: Natural Earth features are intentionally skipped here
+        # to avoid network dependencies. If a custom basemap is provided,
+        # it will be used instead via _add_custom_basemap().
     
     def _add_custom_basemap(self, ax) -> None:
         """Add custom basemap from shapefile if configured."""
