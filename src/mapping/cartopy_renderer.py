@@ -48,7 +48,7 @@ class CartopyRenderer(MapRenderer):
     
     def _add_custom_basemap(self, ax) -> None:
         """Add custom basemap from shapefile if configured."""
-        if self.config.input.basemap_data:
+        if self.config.input.basemap_data and self.config.input.basemap_data.exists():
             basemap = gpd.read_file(self.config.input.basemap_data)
             basemap.plot(
                 ax=ax,
@@ -60,7 +60,11 @@ class CartopyRenderer(MapRenderer):
     
     def _add_snowline(self, ax, snowline: gpd.GeoDataFrame) -> None:
         """Add snowline to the map."""
-        if snowline.empty or snowline.geometry.iloc[0] is None:
+        if snowline.empty:
+            return
+        
+        # Check if geometry column has valid data
+        if snowline.geometry.isna().all():
             return
         
         snowline.plot(

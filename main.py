@@ -1,5 +1,6 @@
 import argparse
 import sys
+import traceback
 from pathlib import Path
 
 import yaml
@@ -73,7 +74,6 @@ def main():
         sys.exit(1)
     except Exception as e:
         print(f"Error during processing: {e}")
-        import traceback
         traceback.print_exc()
         sys.exit(1)
 
