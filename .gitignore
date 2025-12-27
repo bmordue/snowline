@@ -4,3 +4,8 @@ __pycache__/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Test artifacts
+output/
+data/test_*.csv
+test_config.yaml
