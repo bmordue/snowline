@@ -5,8 +5,6 @@ from pathlib import Path
 from datetime import date
 import geopandas as gpd
 
-from src.config import Config
-
 
 class MapRenderer(ABC):
     """Abstract base class for map rendering."""

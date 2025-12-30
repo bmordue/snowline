@@ -13,6 +13,17 @@ class MapGenerator:
     """Generates maps for all dates in the pipeline results."""
     
     def __init__(self, config: Config, renderer: MapRenderer):
+        """Initialize the map generator.
+
+        Parameters
+        ----------
+        config : Config
+            Application configuration, including output directory and filename
+            settings used when generating map files.
+        renderer : MapRenderer
+            Renderer responsible for drawing snowline maps and writing them to
+            the output path.
+        """
         self.config = config
         self.renderer = renderer
     

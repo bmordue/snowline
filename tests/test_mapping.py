@@ -4,7 +4,6 @@ import pytest
 import shutil
 from dataclasses import replace
 from datetime import date
-from pathlib import Path
 
 import geopandas as gpd
 from shapely.geometry import LineString
