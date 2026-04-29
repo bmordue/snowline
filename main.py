@@ -1,43 +1,75 @@
+#!/usr/bin/env python3
+"""Snowline Visualisation Tool.
+
+Command-line entry point. Generates print-ready SVG maps visualising
+historical snowlines in Scotland.
+"""
+
 import argparse
 import sys
 from pathlib import Path
 
-import yaml
+from src.app import SnowlineApp
+from src.logging_config import configure_logging
 
-from src.config import load_config, ConfigurationError
+__version__ = "1.0.0"
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Snowline Visualization Tool")
-    parser.add_argument("--config", type=str, required=True,
-                        help="Path to the YAML configuration file")
-    args = parser.parse_args()
+def create_parser() -> argparse.ArgumentParser:
+    """Create and configure the CLI argument parser."""
+    parser = argparse.ArgumentParser(
+        prog='snowline',
+        description=(
+            'Generate print-ready maps visualising historical snowlines.'
+        ),
+        epilog='For more information, see the documentation at docs/',
+    )
 
-    try:
-        config = load_config(Path(args.config))
-        print("Configuration loaded successfully:")
-        print(f"  Input snow cover data: {config.input.snow_cover_data}")
-        print(f"  Input basemap data: {config.input.basemap_data}")
-        print(f"  Region bounding box: "
-              f"({config.region.bounding_box.min_lon}, {config.region.bounding_box.min_lat}) to "
-              f"({config.region.bounding_box.max_lon}, {config.region.bounding_box.max_lat})")
-        print(f"  Time period: {config.time.start_date} to {config.time.end_date}")
-        print(f"  Output directory: {config.output.directory}")
-        print(f"  Output filename prefix: {config.output.filename_prefix}")
-        print(f"  Style - snowline color: {config.output.style.snowline_color}")
-        print(f"  Style - snowline width: {config.output.style.snowline_width}")
-        print(f"  Style - gridline color: {config.output.style.gridline_color}")
-        print(f"  Style - gridline style: {config.output.style.gridline_style}")
-    except ConfigurationError as e:
-        print(f"Configuration error: {e}")
-        sys.exit(1)
-    except FileNotFoundError:
-        print(f"Error: Configuration file not found at {args.config}")
-        sys.exit(1)
-    except yaml.YAMLError as e:
-        print(f"Error parsing YAML configuration: {e}")
-        sys.exit(1)
+    parser.add_argument(
+        '--config', '-c',
+        type=Path,
+        required=True,
+        help='Path to the YAML configuration file',
+    )
+
+    parser.add_argument(
+        '--dry-run',
+        action='store_true',
+        help='Validate configuration without processing',
+    )
+
+    parser.add_argument(
+        '--verbose', '-v',
+        action='count',
+        default=0,
+        help='Increase output verbosity (can be repeated)',
+    )
+
+    parser.add_argument(
+        '--quiet', '-q',
+        action='store_true',
+        help='Suppress all output except errors',
+    )
+
+    parser.add_argument(
+        '--version',
+        action='version',
+        version=f'%(prog)s {__version__}',
+    )
+
+    return parser
+
+
+def main(argv=None) -> int:
+    """Main entry point. Returns an exit code."""
+    parser = create_parser()
+    args = parser.parse_args(argv)
+
+    configure_logging(args.verbose, args.quiet)
+
+    app = SnowlineApp(args.config)
+    return app.run(dry_run=args.dry_run)
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
