@@ -59,8 +59,10 @@ class SnowlineApp:
         if self.config.input.basemap_data:
             basemap = Path(self.config.input.basemap_data)
             if not basemap.exists():
-                # Warning only, not fatal
+                # Warning only, not fatal. Clear the optional basemap path
+                # so downstream rendering does not attempt to open it.
                 logger.warning(f"Basemap not found: {basemap}")
+                self.config.input.basemap_data = None
 
         return True
 
